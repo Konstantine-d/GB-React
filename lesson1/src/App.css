@@ -1,8 +1,9 @@
 .App {
     text-align: center;
+    background: rgb(96, 158, 240);
 }
 
-.App-logo {
+/* .App-logo {
     height: 40vmin;
     pointer-events: none;
 }
@@ -35,4 +36,11 @@
     to {
         transform: rotate(360deg);
     }
+} */ */
+
+.Wrapper{
+    display: flex;
+    justify-content:center ;
+    flex-wrap: wrap;
+    align-items: center;
 }
