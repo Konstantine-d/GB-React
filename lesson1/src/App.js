@@ -1,25 +1,53 @@
-import logo from './logo.svg';
+import React, {useState,useEffect, useCallback } from "react";
+// import logo from './logo.svg';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+import Message from './chats/Message';
+import Input from './chats/Input';
+import {Button} from 'react-bootstrap'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default function App(){
+    const [messages, setMessages] = useState([
+        {
+            text:null, author:"me"
+        },
+    ]);
 
-export default App;
+    const renderMessage = useCallback((messages,i)=>{
+        return <Message message={messages} key ={i}  />
+    } ,[]);
+        
+        const handleAddMessage = useCallback((text,author = "me")=>{
+            setMessages((oldMessages)=>([...oldMessages,{text,author}]));
+        },[]);
+
+        useEffect(()=>{
+            let timeout;
+            if(messages[messages.length - 1].author !== 'robot'){
+                timeout = setTimeout(()=>{
+                    handleAddMessage('Ждите ответа оператора','robot')
+                },1000);
+            }
+            return ()=>{
+                clearTimeout(timeout);
+
+            }
+
+        },[messages,handleAddMessage]);
+
+        
+
+        return(
+            <div className ='container'>
+                <div className=''>
+                    {messages.map(renderMessage)}
+                    <Input onAddMessage = {handleAddMessage}/>
+                </div>
+            </div>
+            )
+        }
