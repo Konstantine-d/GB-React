@@ -1,42 +1,20 @@
 import React, {useState,useEffect, useCallback } from "react";
 // import logo from './logo.svg';
-import Message from './Message';
-import Input from './Input';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+import Message from './chats/Message';
+import Input from './chats/Input';
+import {Button} from 'react-bootstrap'
 import './App.css';
-// class App extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             counter: 0,
-//             message:String,
-//         };
-//     }
-//     handelIncrease = () => {
-//         this.setState((prevState) => ({
-//             counter: prevState.counter + 1,
-//         }))
-//     };
-//     mesRend = ()=>{
-//         this.setState((prevState)=>({
-//             message : [],
-//         }))
-//     };
-//     render() {
-//         return ( < div className = "Wrapper" >
-//             <Counter count = { this.state.counter} onIncrease = { this.handelIncrease }/>
-//             <Chat />
-//              </div >
-//         )
-//     };
-// }
 
 export default function App(){
     const [messages, setMessages] = useState([
         {
-            text:"message1", author:"me"
-        },
-        {
-            text:"message2", author:"me"
+            text:null, author:"me"
         },
     ]);
 
@@ -62,12 +40,14 @@ export default function App(){
 
         },[messages,handleAddMessage]);
 
-        return(
-            <>
-            {messages.map(renderMessage)}
-            <Input onAddMessage = {handleAddMessage}/>
-            </>
-        )
-}
+        
 
-// export default App;
+        return(
+            <div className ='container'>
+                <div className=''>
+                    {messages.map(renderMessage)}
+                    <Input onAddMessage = {handleAddMessage}/>
+                </div>
+            </div>
+            )
+        }
